@@ -4,7 +4,7 @@ Official pytorch implementation of the paper [Betrayed by Attention: A Simple ye
 ## Overview
 In this paper, we propose a simple yet effective approach for self-supervised video object segmentation (VOS). Our key insight is that the inherent structural dependencies present in DINO-pretrained Transformers can be leveraged to establish robust spatio-temporal correspondences in videos. Furthermore, simple clustering on this correspondence cue is sufficient to yield competitive segmentation results. We develop a simplified architecture that capitalizes on the emerging objectness from DINO-pretrained Transformers, bypassing the need for additional modalities or slot attention. Specifically, we first introduce a single spatio-temporal Transformer block to process the frame-wise DINO features and establish spatio-temporal dependencies in the form of self-attention. Subsequently, utilizing these attention maps, we implement hierarchical clustering to generate object segmentation masks. To train the spatio-temporal block in a fully self-supervised manner, we employ semantic and dynamic motion consistency coupled with entropy normalization. Our method demonstrates state-of-the-art performance across multiple unsupervised VOS benchmarks and particularly excels in complex real-world multi-object video segmentation tasks such as DAVIS-17-Unsupervised and YouTube-VIS-19.
 
-![teaser](Figure/teaser.pdf)
+![teaser](Figure/teaser.png)
 
 [[Project Page]](https://mark12ding.github.io/project/CVPR22_FAME/) [[arXiv]](https://arxiv.org/abs/2109.15130) [[PDF]](https://mark12ding.github.io/project/CVPR22_FAME/asset/CVPR22_FAME.pdf)
 
@@ -18,7 +18,7 @@ ToDo
 - Download the UCF101 dataset from the [official website](https://www.crcv.ucf.edu/data/UCF101.php).
 
 
-### Pretrain
+### Training
 In default, we train backbone I3D on K400 on a single node with 8 NVIDIA V100 gpus for 200 epochs. 
 ```python
 python3 train.py \
@@ -42,7 +42,7 @@ I3D after pretrain on K400 [[google drive]](https://drive.google.com/file/d/1_-_
 
 I3D after finetune on UCF101 (Acc@1 88.9) [[google drive]](https://drive.google.com/file/d/10VuxFjEwH8P5wN1-3HeCkcN_wS76OQat/view?usp=sharing)
 
-### Action Recognition Downstream Evaluation
+### Downstream Evaluation
 In default, we finetune backbone I3D on UCF101 on a single node with 4 NVIDIA V100 gpus for 150 epochs.
 ```python
 python3 eval.py \
@@ -66,7 +66,7 @@ python3 eval.py \
   $ucf101/dataset/path
 ```
 ## Visualization
-We visualize class-agnostic activation maps. FAME can well caputre the foreground motion while the baseline method fails.
+We visualize results on video sequences with occlusion. Our model is able to deal with partial or complete object occlusion, where an object disappears in some frame and reappears in later frames.
 ![vis](Figure/vis.png)
 
 ## Acknowledgement
