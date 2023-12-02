@@ -1,17 +1,23 @@
 # Betrayed by Attention: A Simple yet Effective Approach for Self-supervised Video Object Segmentation
-Official pytorch implementation of the paper [Betrayed by Attention: A Simple yet Effective Approach for Self-supervised Video Object Segmentation.](https://arxiv.org/abs/2109.15130)
+Official pytorch implementation of the paper [Betrayed by Attention: A Simple yet Effective Approach for Self-supervised Video Object Segmentation.](https://arxiv.org/abs/2311.17893)
 
 ## Overview
-In this paper, we propose a simple yet effective approach for self-supervised video object segmentation (VOS). Our key insight is that the inherent structural dependencies present in DINO-pretrained Transformers can be leveraged to establish robust spatio-temporal correspondences in videos. Furthermore, simple clustering on this correspondence cue is sufficient to yield competitive segmentation results. We develop a simplified architecture that capitalizes on the emerging objectness from DINO-pretrained Transformers, bypassing the need for additional modalities or slot attention. Specifically, we first introduce a single spatio-temporal Transformer block to process the frame-wise DINO features and establish spatio-temporal dependencies in the form of self-attention. Subsequently, utilizing these attention maps, we implement hierarchical clustering to generate object segmentation masks. To train the spatio-temporal block in a fully self-supervised manner, we employ semantic and dynamic motion consistency coupled with entropy normalization. Our method demonstrates state-of-the-art performance across multiple unsupervised VOS benchmarks and particularly excels in complex real-world multi-object video segmentation tasks such as DAVIS-17-Unsupervised and YouTube-VIS-19.
+In this paper, we propose a simple yet effective approach for self-supervised video object segmentation (VOS). Our key insight is that the inherent structural dependencies present in DINO-pretrained Transformers can be leveraged to establish robust spatio-temporal correspondences in videos. Furthermore, simple clustering on this correspondence cue is sufficient to yield competitive segmentation results. We develop a simplified architecture that capitalizes on the emerging objectness from DINO-pretrained Transformers. Specifically, we first introduce a single spatio-temporal Transformer block to process the frame-wise DINO features and establish spatio-temporal dependencies in the form of self-attention. Subsequently, utilizing these attention maps, we implement hierarchical clustering to generate object segmentation masks. To train the spatio-temporal block in a fully self-supervised manner, we employ semantic and dynamic motion consistency coupled with entropy normalization. Our method demonstrates state-of-the-art performance across multiple unsupervised VOS benchmarks and particularly excels in complex real-world multi-object video segmentation tasks such as DAVIS-17-Unsupervised and YouTube-VIS-19.
 
 ![teaser](Figure/teaser.png)
 
-[[Project Page]](https://mark12ding.github.io/project/CVPR22_FAME/) [[arXiv]](https://arxiv.org/abs/2109.15130) [[PDF]](https://mark12ding.github.io/project/CVPR22_FAME/asset/CVPR22_FAME.pdf)
+[Project Page](coming soon) [[arXiv]](https://arxiv.org/abs/2311.17893) [[PDF]](https://arxiv.org/pdf/2311.17893.pdf)
 
 ## Usage
 
 ### Requirements
-ToDo
+pytorch
+opencv-python
+cvbase
+einops
+kornia
+tensorboardX
+
 
 ### Data preparation
 - Download the Kinetics400 dataset from the [official website](https://deepmind.com/research/open-source/kinetics).
@@ -70,26 +76,16 @@ We visualize results on video sequences with occlusion. Our model is able to dea
 ![vis](Figure/vis.png)
 
 ## Acknowledgement
-Our code is based on the implementation of [VideoMoCo](https://github.com/tinapan-pt/VideoMoCo) and [MoCo](https://github.com/facebookresearch/moco). We sincerely thanks those authors for their great works.
+Our code is partly based on the implementation of [MotinoGrouping](https://github.com/charigyang/motiongrouping). We sincerely thanks those authors for their great work.
 
 
 ## Citation
 If our code is helpful to your work, please consider citing:
 ```
-@inproceedings{ding2022motion,
+@article{ding2023betrayed,
   title={Betrayed by Attention: A Simple yet Effective Approach for Self-supervised Video Object Segmentation},
   author={Ding, Shuangrui and Qian, Rui and Xu, Haohang and Lin, Dahua and Xiong, Hongkai},
-  journal={arXiv preprint arXiv:xxxxxx},
-  year={2022}
+  journal={arXiv preprint arXiv:2311.17893},
+  year={2023}
 }
 ```
-
-
-
-
-
-
-
-
-
-

@@ -132,6 +132,7 @@ def eval(val_loader, model, device, ratio, tau, save_path=None, writer=None, tra
         print(' --> running inference')
         for idx, val_sample in enumerate(val_loader):
             rgbs, gts, category, val_idx = val_sample
+            print(f'-----------process {category} sequence in one shot-------')
             rgbs = rgbs.float().to(device)  # b t c h w
             rgbs = aug_list(rgbs)
             gts = gts.float().to(device)  # b t c h w
@@ -204,7 +205,7 @@ if __name__ == "__main__":
     #misc
     parser.add_argument('--seed', default=0, type=int)
     parser.add_argument('--verbose', type=str, default=None)
-    parser.add_argument('--basepath', type=str, default="/home/ma-user/work/shuangrui/DAVIS-2016")
+    parser.add_argument('--basepath', type=str, default="/path/to/DAVIS-2017")
     parser.add_argument('--output_path', type=str, default="./OUTPUT/")
     parser.add_argument('--resume_path', type=str, default=None)
     parser.add_argument('--save_path', type=str, default=None)

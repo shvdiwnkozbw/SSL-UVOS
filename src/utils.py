@@ -479,7 +479,6 @@ def init_distributed_mode(args):
     setup_for_distributed(args.rank == 0)
 
 def produce_loss(data_tuple, gt, reduce_dim, criterion):
-    import pdb; pdb.set_trace() 
     recon_combined, recons, masks= data_tuple
     recon_loss = criterion(gt, recon_combined)
     entropy_loss = -(masks * torch.log(masks + epsilon)).sum(dim=reduce_dim).mean()
@@ -489,29 +488,29 @@ import random
 import kornia
 from kornia.augmentation.container import VideoSequential
 
-def Augment_GPU_pre(args):
-#     crop_size = args.crop_size
-    resolution = args.resolution
-    radius_0 = int(0.1*resolution[0])//2*2 + 1
-    radius_1 = int(0.1*resolution[1])//2*2 + 1
-    sigma = random.uniform(0.1, 2)
-    # For k400 parameter:
-    # mean = torch.tensor([0.43216, 0.394666, 0.37645])
-    # std = torch.tensor([0.22803, 0.22145, 0.216989])
-    mean = torch.tensor([0.485, 0.456, 0.406])
-    std = torch.tensor([0.229, 0.224, 0.225])
+# def Augment_GPU_pre(args):
+# #     crop_size = args.crop_size
+#     resolution = args.resolution
+#     radius_0 = int(0.1*resolution[0])//2*2 + 1
+#     radius_1 = int(0.1*resolution[1])//2*2 + 1
+#     sigma = random.uniform(0.1, 2)
+#     # For k400 parameter:
+#     # mean = torch.tensor([0.43216, 0.394666, 0.37645])
+#     # std = torch.tensor([0.22803, 0.22145, 0.216989])
+#     mean = torch.tensor([0.485, 0.456, 0.406])
+#     std = torch.tensor([0.229, 0.224, 0.225])
 
-    normalize_video = kornia.augmentation.Normalize(mean, std)
-    aug_list = VideoSequential(
-        # kornia.augmentation.RandomResizedCrop(size=resolution, scale=(0.8, 1.0)),
-        kornia.augmentation.RandomGrayscale(p=0.2),
-        kornia.augmentation.ColorJitter(0.4, 0.4, 0.4, 0.1, p=0.8),
-        # kornia.augmentation.RandomHorizontalFlip(),
-        kornia.augmentation.RandomGaussianBlur((radius_0, radius_1), (sigma, sigma), p=0.5),
-        normalize_video,
-        data_format="BTCHW",
-        same_on_frame=True)
-    return aug_list
+#     normalize_video = kornia.augmentation.Normalize(mean, std)
+#     aug_list = VideoSequential(
+#         # kornia.augmentation.RandomResizedCrop(size=resolution, scale=(0.8, 1.0)),
+#         kornia.augmentation.RandomGrayscale(p=0.2),
+#         kornia.augmentation.ColorJitter(0.4, 0.4, 0.4, 0.1, p=0.8),
+#         # kornia.augmentation.RandomHorizontalFlip(),
+#         kornia.augmentation.RandomGaussianBlur((radius_0, radius_1), (sigma, sigma), p=0.5),
+#         normalize_video,
+#         data_format="BTCHW",
+#         same_on_frame=True)
+#     return aug_list
 
 import itertools
 
