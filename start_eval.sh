@@ -3,7 +3,7 @@ python -W ignore src/eval_oneshot.py \
         --batch_size 1 \
         --num_t 1 \
         --output_path test_log \
-		--dataset DAVIS2017 \
+        --dataset DAVIS2017 \
         --resolution -1 -1 \
         --ratio 10 \
         --tau 1.0 \
