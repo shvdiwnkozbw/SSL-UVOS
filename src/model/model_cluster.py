@@ -4,8 +4,7 @@ import random
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
-from .attention import Block, InstanceNorm1d, BasicConv2d, CrossBlock, BasicBlock, Conv2Plus1D, MEBlock
-from .dconv import DeformableConv2d
+from .attention import Block
 from .vision_transformer import vit_small, vit_base
 
 class AttEncoder(nn.Module):
@@ -16,7 +15,7 @@ class AttEncoder(nn.Module):
                        attn_drop_t=0.4,
                        num_frames=3
                 ):
-        """Builds the Slot Attention-based Auto-encoder.
+        """
         Args:
             resolution: Tuple of integers specifying width and height of input image
             num_frames: Frame length used in training
