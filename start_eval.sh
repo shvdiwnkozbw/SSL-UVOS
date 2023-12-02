@@ -1,10 +1,10 @@
 python -W ignore src/eval_oneshot.py \
-        --basepath /mnt/data/mmlab_ie/qianrui/davis/DAVIS \
+        --basepath /path/to/evaluation/data \
         --batch_size 1 \
         --num_t 1 \
         --output_path test_log \
 		--dataset DAVIS2017 \
-        --resolution 192 384 \
+        --resolution -1 -1 \
         --ratio 10 \
         --tau 1.0 \
         --save_path DAVIS_Attn \

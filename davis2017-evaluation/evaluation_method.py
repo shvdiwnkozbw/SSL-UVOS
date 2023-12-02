@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from davis2017.evaluation import DAVISEvaluation
 
-default_davis_path = '/mnt/data/mmlab_ie/qianrui/davis/DAVIS'
+default_davis_path = 'path/to/davis/data'
 
 time_start = time()
 parser = argparse.ArgumentParser()
