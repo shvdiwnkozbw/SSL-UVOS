@@ -20,7 +20,7 @@ In this paper, we propose a simple yet effective approach for self-supervised vi
 
 
 ### Data preparation
-- Download the DAVIS-2017 dataset from the [official website](https://davischallenge.org/).
+- Download the DAVIS-2017-Unsupervised dataset from the [official website](https://davischallenge.org/davis2017/code.html#unsupervised).
 
 ### Pretrained Model
 - Download our model checkpoint based on DINO-ViT-S/8 pretrained on YT-VOS 2016 [[google drive]](https://drive.google.com/file/d/1vmOVFCCICgEwOyTpoXjA5pCfsIiZ75jl/view?usp=drive_link)
@@ -30,14 +30,14 @@ After downloading the pretrained model, you can run the inference code by execut
 ```python
 bash start_eval.sh
 ```
-Ensure that the basepath is set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised.
+Ensure that the basepath and davis_path is set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised.
 
 ## Visualization
 We have visualized results on video sequences with occlusions. Our model successfully handles partial or complete object occlusion, where an object disappears in some frames and reappears in later ones.
 ![vis](Figure/vis.png)
 
 ## Acknowledgement
-Our code is partly based on the implementation of [Motino Grouping](https://github.com/charigyang/motiongrouping). We sincerely thank the authors for their significant contribution.
+Our code is partly based on the implementation of [Motino Grouping](https://github.com/charigyang/motiongrouping). We sincerely thank the authors for their significant contribution. If you have any questions regarding the paper or code, please don't hesitate to send us an email or raise an issue.
 
 
 ## Citation
