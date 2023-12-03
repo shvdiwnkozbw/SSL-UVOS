@@ -26,7 +26,7 @@ def kl_distance(final_set, attn):
     distance = cross_entropy - self_entropy
     return distance
 
-def hierarchical_cluster(attn, tau, num_iter):
+def hierarchical_cluster(attn, tau, num_iter, device):
     # attn t hw c
     ts = 3
     bs = 10000
@@ -35,7 +35,7 @@ def hierarchical_cluster(attn, tau, num_iter):
 
     ## use a temporal window for clustering of the first hierarchy to speed up clustering process
     for t in range(0, attn.shape[0], ts):
-        sample = attn[t:t+ts].view(-1, attn.shape[-1])
+        sample = attn[t:t+ts].view(-1, attn.shape[-1]).to(device)
         distance = kl_distance(sample, sample)
         keep_set = []
         for i in range(0, distance.shape[0], bs):
@@ -45,7 +45,7 @@ def hierarchical_cluster(attn, tau, num_iter):
             keep_set.append(dist)
         keep_set = torch.cat(keep_set, dim=0)
         distance = kl_distance(keep_set, keep_set)
-        indicator = torch.ones(len(keep_set)).to(attn.device)
+        indicator = torch.ones(len(keep_set)).to(device)
         for i in range(len(keep_set)):
             if indicator[i] == 0:
                 continue
@@ -60,7 +60,7 @@ def hierarchical_cluster(attn, tau, num_iter):
         final_set = []
         keep_set = torch.stack(keep_set, dim=0) # K hw
         distance = kl_distance(keep_set, keep_set)
-        indicator = torch.ones(len(keep_set)).to(attn.device) # K
+        indicator = torch.ones(len(keep_set)).to(device) # K
         for i in range(len(keep_set)):
             if indicator[i] == 0:
                 continue
@@ -74,7 +74,7 @@ def hierarchical_cluster(attn, tau, num_iter):
     final_set = torch.stack(final_set, dim=0)
 
     ## calculate cluster assignments as object segmentation masks
-    distance = kl_distance(final_set, attn.view(-1, attn.shape[-1]))
+    distance = kl_distance(final_set.to(attn.device), attn.view(-1, attn.shape[-1]))
     nms_set = torch.argmin(distance, dim=0)
     final_mask = torch.zeros(final_set.shape[0], attn.shape[0]*attn.shape[1]).to(attn.device)
     print('cluster centroids:', final_set.shape)
@@ -83,7 +83,7 @@ def hierarchical_cluster(attn, tau, num_iter):
     return final_mask
 
 def inference(masks_collection, rgbs, gts, model, T, ratio, tau, device):
-    bs = 8
+    bs = 1
     feats = []
     ## extract frame-wise dino features
     for i in range(0, T, bs):
@@ -111,7 +111,7 @@ def inference(masks_collection, rgbs, gts, model, T, ratio, tau, device):
     print('spatio-temporal attention matrix:', attention.shape)
 
     ## clustering on the spatio-temporal attention maps and produce segmentation for the whole video
-    dist = hierarchical_cluster(attention.view(T, H*W, -1).to(device), tau=tau, num_iter=10000)
+    dist = hierarchical_cluster(attention.view(T, H*W, -1), tau=tau, num_iter=10000, device=device)
     dist = einops.rearrange(dist, '(s p) (t h w) -> t s p h w', t=T, p=1, h=H)
     mask = dist.unsqueeze(1)
     for i in range(T):
