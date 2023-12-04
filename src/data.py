@@ -16,7 +16,11 @@ def readRGB(sample_dir, resolution):
     except:
         print(sample_dir)
     rgb = rgb / 255
-    if not resolution[0] == -1:
+    if resolution[0] == -1:
+        h = (resolution[0] // 8) * 8
+        w = (resolution[1] // 8) * 8
+        rgb = cv2.resize(rgb, (w, h), interpolation=cv2.INTER_LINEAR)
+    else:
         rgb = cv2.resize(rgb, (resolution[1], resolution[0]), interpolation=cv2.INTER_LINEAR)
     return einops.rearrange(rgb, 'h w c -> c h w')
 
