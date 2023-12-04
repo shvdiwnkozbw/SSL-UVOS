@@ -11,4 +11,8 @@ python -W ignore src/eval_oneshot.py \
         --resume_path checkpoint_dino-s-8.pth
 
 rm davis2017-evaluation/results/unsupervised/rvos/*.csv
-python davis2017-evaluation/evaluation_method.py --task unsupervised --results_path davis2017-evaluation/results/unsupervised/rvos
+
+python davis2017-evaluation/evaluation_method.py \
+        --task unsupervised \
+        --results_path davis2017-evaluation/results/unsupervised/rvos \
+        --davis_path /path/to/evaluation/data
