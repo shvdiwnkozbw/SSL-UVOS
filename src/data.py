@@ -16,8 +16,8 @@ def readRGB(sample_dir, resolution):
         print(sample_dir)
     rgb = rgb / 255
     if resolution[0] == -1:
-        h = (resolution[0] // 8) * 8
-        w = (resolution[1] // 8) * 8
+        h = (rgb.shape[0] // 8) * 8
+        w = (rgb.shape[1] // 8) * 8
         rgb = cv2.resize(rgb, (w, h), interpolation=cv2.INTER_LINEAR)
     else:
         rgb = cv2.resize(rgb, (resolution[1], resolution[0]), interpolation=cv2.INTER_LINEAR)
