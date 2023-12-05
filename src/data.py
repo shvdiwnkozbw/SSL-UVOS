@@ -6,7 +6,6 @@ import random
 import einops
 import numpy as np
 import glob as gb
-from utils import read_flo
 from torch.utils.data import Dataset
 
 def readRGB(sample_dir, resolution):
