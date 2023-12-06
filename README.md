@@ -11,7 +11,8 @@ In this paper, we propose a simple yet effective approach for self-supervised vi
 ## Usage
 
 ### Requirements
-- pytorch
+- pytorch 1.12
+- torchvision
 - opencv-python
 - cvbase
 - einops
@@ -30,7 +31,7 @@ After downloading the pretrained model, you can run the inference code by execut
 ```python
 bash start_eval.sh
 ```
-Ensure that the basepath and davis_path is set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised. Note that the default resolution ```-1 -1``` denotes using the original image without resizing as input. Feel free to set a smaller resolution, e.g., ```192 384```, for faster inference and evaluation but may sacrifice the accuracy.
+Ensure that the basepath and davis_path is set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised. We set the default resolution ```320 480``` for tradeoff between segmentation accuracy and inference speed. Feel free to set a smaller resolution, e.g., ```192 384```, for faster inference and evaluation or larger resolution for higher accuracy.
 
 ## Visualization
 We have visualized results on video sequences with occlusions. Our model successfully handles partial or complete object occlusion, where an object disappears in some frames and reappears in later ones.
