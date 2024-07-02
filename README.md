@@ -31,14 +31,14 @@ After downloading the pretrained model, you can run the inference code by execut
 ```python
 bash start_eval.sh
 ```
-Ensure that the basepath and davis_path is set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised. We set the default resolution ```320 480``` for tradeoff between segmentation accuracy and inference speed. Feel free to set a smaller resolution, e.g., ```192 384```, for faster inference and evaluation or larger resolution for higher accuracy.
+Ensure that the basepath and davis_path are set to your DAVIS data path. This will provide you with the final performance on DAVIS-2017-Unsupervised. We set the default resolution ```320 480``` for a tradeoff between segmentation accuracy and inference speed. Feel free to set a smaller resolution, e.g., ```192 384```, for faster inference and evaluation or a larger resolution for higher accuracy.
 
 ## Visualization
-We have visualized results on video sequences with occlusions. Our model successfully handles partial or complete object occlusion, where an object disappears in some frames and reappears in later ones.
+We have visualized results on video sequences with occlusions. Our model successfully handles partial or complete object occlusion, where an object disappears in some frames and reappears later.
 ![vis](Figure/vis.png)
 
 ## Acknowledgement
-Our code is partly based on the implementation of [Motino Grouping](https://github.com/charigyang/motiongrouping). We sincerely thank the authors for their significant contribution. If you have any questions regarding the paper or code, please don't hesitate to send us an email or raise an issue.
+Our code is partly based on the implementation of [Motion Grouping](https://github.com/charigyang/motiongrouping). We sincerely thank the authors for their significant contribution. If you have any questions regarding the paper or code, please don't hesitate to send us an email or raise an issue.
 
 
 ## Citation
