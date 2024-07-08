@@ -29,7 +29,7 @@ In this paper, we propose a simple yet effective approach for self-supervised vi
 ### Training
 After downloading the DINO model (e.g., DINO-S-8 [[link]](https://dl.fbaipublicfiles.com/dino/dino_deitsmall8_pretrain/dino_deitsmall8_pretrain_full_checkpoint.pth)), you can run the training code by setting `--dino_path` to your current DINO model path:
 ```python
-bash start_eval.sh
+bash start_rgb.sh
 ```
 
 ### Downstream Evaluation
