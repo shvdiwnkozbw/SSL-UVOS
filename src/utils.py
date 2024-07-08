@@ -2,12 +2,33 @@ import os
 import torch
 import einops
 import cv2
+import random
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import os
 import inspect
 import torch.distributed as dist
+import kornia
+from kornia.augmentation.container import VideoSequential
+
+def Augment_GPU_pre(args):
+    resolution = args.resolution
+    radius_0 = int(0.1*resolution[0])//2*2 + 1
+    radius_1 = int(0.1*resolution[1])//2*2 + 1
+    sigma = random.uniform(0.1, 2)
+    mean = torch.tensor([0.485, 0.456, 0.406])
+    std = torch.tensor([0.229, 0.224, 0.225])
+
+    normalize_video = kornia.augmentation.Normalize(mean, std)
+    aug_list = VideoSequential(
+        kornia.augmentation.RandomGrayscale(p=0.2),
+        kornia.augmentation.ColorJitter(0.4, 0.4, 0.4, 0.1, p=0.8),
+        kornia.augmentation.RandomGaussianBlur((radius_0, radius_1), (sigma, sigma), p=0.5),
+        normalize_video,
+        data_format="BTCHW",
+        same_on_frame=True)
+    return aug_list
 
 ### from: https://github.com/pytorch/pytorch/issues/15849#issuecomment-518126031
 class _RepeatSampler(object):

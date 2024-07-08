@@ -13,7 +13,8 @@ class AttEncoder(nn.Module):
                        num_t=1,
                        path_drop=0.1,
                        attn_drop_t=0.4,
-                       num_frames=3
+                       num_frames=3,
+                       dino_path=None
                 ):
         """
         Args:
@@ -29,6 +30,8 @@ class AttEncoder(nn.Module):
         self.hid_dims = 128
         
         self.encoder = vit_small(8)
+        if dino_path is not None:
+            self.encoder.load_state_dict(torch.load(dino_path), strict=False)
         self.down_time = 8
         self.end_size = (resolution[0] // self.down_time, resolution[1] // self.down_time)
         self.num_t = num_t
@@ -48,7 +51,7 @@ class AttEncoder(nn.Module):
         bs = image.shape[0]
         image_t = einops.rearrange(image, 'b t c h w -> (b t) c h w')
 
-        x, cls_token, attn, k = self.encoder(image_t, layer)  # DINO backbone
+        x, cls_token, attn, k = self.encoder(image_t)  # DINO backbone
         x = einops.rearrange(x, '(b t) c h w -> b (t h w) c', t=self.T) ##spatial_flatten of output feature
         k = einops.rearrange(k, '(b t) c h w -> b t (h w) c', t=self.T) ##spatial_flatten of key feature
         cls_token = einops.rearrange(cls_token, '(b t) c -> b t c', t=self.T) ##per-frame cls token
