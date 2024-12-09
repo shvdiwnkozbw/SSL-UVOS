@@ -6,7 +6,7 @@ In this paper, we propose a simple yet effective approach for self-supervised vi
 
 ![teaser](Figure/teaser.png)
 
-[Project Page](coming soon) [[arXiv]](https://arxiv.org/abs/2311.17893) [[PDF]](https://arxiv.org/pdf/2311.17893.pdf)
+[Project Page](coming soon) [[arXiv]](https://arxiv.org/abs/2311.17893) [[PDF]](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/06142.pdf)
 
 ## Usage
 
