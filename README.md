@@ -56,4 +56,13 @@ If our code assists your work, please consider citing:
   journal={arXiv preprint arXiv:2311.17893},
   year={2023}
 }
+
+@inproceedings{ding2024betrayed,
+  title={Betrayed by attention: A simple yet effective approach for self-supervised video object segmentation},
+  author={Ding, Shuangrui and Qian, Rui and Xu, Haohang and Lin, Dahua and Xiong, Hongkai},
+  booktitle={European Conference on Computer Vision},
+  pages={215--233},
+  year={2024},
+  organization={Springer}
+}
 ```
